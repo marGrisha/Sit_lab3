@@ -1,0 +1,44 @@
+{% extends "base_forms.html" %}
+{% block title %}Volcano list{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h2>Volcanoes</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Country</th>
+          <th>Location</th>
+          <th>Name</th>
+          <th>Elevation</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in volcanoes %}
+          <tr>
+            <td>{{ v.id }}</td>
+            <td>{{ v.location.country.name }}</td>
+            <td>{{ v.location.name }}</td>
+            <td>{{ v.name }}</td>
+            <td>{{ v.elevation_m }}</td>
+            <td>{{ v.volcano_type }}</td>
+            <td>{{ v.status }}</td>
+            <td>
+              <a class="btn btn-secondary" href="{% url 'volcano_edit' v.id %}">Edit</a>
+              <a class="btn btn-danger" href="{% url 'volcano_delete' v.id %}">Delete</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="8">No volcanoes</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

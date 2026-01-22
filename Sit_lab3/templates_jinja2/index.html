@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% from "macros/tables.html" import render_table %}
+
+{% block content %}
+
+  <div class="card">
+    <h2>CRUD (Django Forms)</h2>
+    <a href="/volcanoes/">Перейти к управлению Volcano (add/edit/delete)</a>
+  </div>
+
+  {{ render_table(
+      "Итоги (количество записей)",
+      ["Countries", "Locations", "Volcanoes", "Eruptions", "Impacts", "TSU eruptions", "EQ eruptions"],
+      [[totals.countries, totals.locations, totals.volcanoes, totals.eruptions, totals.impacts, tsu_count, eq_count]]
+  ) }}
+
+  {{ render_table(
+      "Country (все записи) — отношение Country",
+      ["ID", "Name"],
+      country_rows
+  ) }}
+
+  {{ render_table(
+      "Location (все записи) — отношение Location",
+      ["ID", "Country", "Location"],
+      location_rows
+  ) }}
+
+  {{ render_table(
+      "Volcano (все записи) — отношение Volcano",
+      ["ID", "Country", "Location", "Name", "Lat", "Lon", "Elevation", "Type", "Status"],
+      volcano_rows
+  ) }}
+
+  {{ render_table(
+      "Eruption (последние 50) — отношение Eruption",
+      ["ID", "Country", "Location", "Volcano", "Year", "Month", "Day", "TSU", "EQ", "Time", "VEI", "Agent"],
+      eruption_rows
+  ) }}
+
+  {{ render_table(
+      "Impact (последние 50) — отношение Impact",
+      ["ID", "Country", "Volcano", "Year", "Month", "Day", "Total Deaths", "Total Injuries", "Total Missing", "Total Damage (M$)", "Total Houses Destroyed"],
+      impact_rows
+  ) }}
+
+  {{ render_table(
+      "Статистика: топ-15 стран по извержениям",
+      ["Country", "Volcanoes", "Eruptions", "Max VEI", "Sum Total Deaths"],
+      top_country_rows
+  ) }}
+
+  {{ render_table(
+      "Статистика: распределение VEI",
+      ["VEI", "Count"],
+      vei_rows
+  ) }}
+
+  {{ render_table(
+      "Статистика: топ-15 вулканов по числу извержений",
+      ["Country", "Volcano", "Eruptions", "Max VEI"],
+      top_volcano_rows
+  ) }}
+
+{% endblock %}

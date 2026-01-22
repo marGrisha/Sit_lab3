@@ -1,0 +1,20 @@
+{% extends "base_forms.html" %}
+{% block title %}Delete volcano{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h2>Delete volcano</h2>
+
+    <p>
+      Are you sure you want to delete:
+      <b>{{ object.name }}</b>
+      ({{ object.location.country.name }} / {{ object.location.name }})?
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn btn-danger" type="submit">Yes, delete</button>
+      <a class="btn btn-secondary" href="{% url 'volcano_list' %}">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
